@@ -8,24 +8,48 @@ var currChart;
 var chartList = [];
 
 // --- LINE GRAPH ---
-// dataList holds the list of data points for line graph
+// dataList holds the list of data points in line graph
+// wData holds list of seven most recent data points
+// mData holds list of 30 most recent data points
+// tData holds list of all data points
 var dataList = [];
+var wData = [];
+var mData = [];
+var tData = [];
 
 /*
 addPoint adds a point to the line graph with the given
 date and "score"
 */
 function addPoint(year, month, day, num) {
-    dataList.push({
+    tData.push({
         x: new Date(year, month - 1, day),
         y: num
     });
 }
 
-//example for addPoint function
-addPoint(2016, 1, 12, 100);
-addPoint(2016, 2, 13, 50);
+//generates a random score between 0 and 100
+function score() {
+    return Math.floor((Math.random() * 100) + 1);
+}
 
+//example for addPoint function
+//January
+addPoint(2016, 1, 12, score());
+addPoint(2016, 1, 15, score());
+addPoint(2016, 1, 20, score());
+addPoint(2016, 1, 27, score());
+addPoint(2016, 1, 28, score());
+//February
+for (var i = 1; i < 29; i++) {
+    addPoint(2016, 2, i, score());
+}
+
+wData = tData.slice(tData.length -7);
+mData = tData.slice(tData.length-30);
+
+//DEFAULT: dataList shown is wData;
+dataList = wData;
 
 // --- BAR GRAPHS ---
 // put values here
@@ -51,6 +75,14 @@ canvas.onclick = function (e) {
     }
     setChart(chartNum);
 }
+
+//when time range changed, chart && dataList to reflect option selected
+$('#dateRange').val('selectedvalue').change(function() {
+    if (this.value == "7") { dataList = wData; }
+    else if (this.value == "30") { dataList = mData; }
+    else { dataList = tData; }
+    setChart(0);
+});
 
 // init
 //build the average list

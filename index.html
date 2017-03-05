@@ -1,3 +1,81 @@
+
+<link rel='stylesheet' type='text/css' href='main.css'>
+
 <canvas id="myChart" width="400" height="190"></canvas>
+<div id="menu">
+	<h3>View Options:</h3>
+	<p>Data Type:</p>
+	<select>
+		<option>General Overview</option>
+		<option>Accuracy</option>
+		<option>Difficulty</option>
+	</select>
+	<p id="consonant-q">Consonants:</p>
+	<select name= "consonants" id="consonant-opt">
+		<option value="all">All</option>
+		<option value="C">C</option>
+		<option value="D">D</option>
+		<option value="G">G</option>
+		<option value="K">K</option>
+		<option value="P">P</option>
+		<option value="T">T</option>
+		<option value="CT">CT</option>
+		<option value="CP">CP</option>
+		<option value="DG">DG</option>
+		<option value="PT">PT</option>
+	</select>
+	<p id="syllable-q">Syllables:</p>
+	<select id="syllable-opt">
+		<option value="all">All</option>
+		<option value="1">1</option>
+		<option value="2">2</option>
+		<option value="3">3</option>
+	</select>
+	<p>Time Range:</p>
+	<select id="dateRange" name="dateRange">
+		<option value="7">Last 7 Days</option>
+		<option value="30">Last 30 Days</option>
+		<option value="all">All</option>
+	</select>
+</div>
+
+<script src='https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js'></script>
 <script src="Chart.bundle.js"></script>
 <script src="main.js"></script>
+
+<!-- structure of menu: -->
+<!-- What data do you want to see? -->
+	<!-- 1. Overview (points/time & time played/difficulties) ** DEFAULT -->
+	<!-- 2. Accuracy (tries/word) -->
+	<!-- 3. Difficulty (Percentages difficulty/time) -->
+<!-- if chose 2. -->
+	<!-- 4. Overview (general accuracy) -->
+	<!-- 5. Consonants -->
+	<!-- 6. Syllables -->
+<!-- if chose 5.: Which Consonants? -->
+	<!-- All (would be average accuracy) -->
+	<!-- C -->
+	<!-- D -->
+	<!-- G -->
+	<!-- K -->
+	<!-- P -->
+	<!-- T -->
+	<!-- CT -->
+	<!-- CP -->
+	<!-- DG -->
+	<!-- PT -->
+<!-- if chose 6. How Many Syllables? -->
+	<!-- All (would be average accuracy) -->
+	<!-- 1 -->
+	<!-- 2 -->
+	<!-- 3 -->
+<!-- When? -->
+	<!-- Last 7 Days (Default) -->
+	<!-- Last 30 Days -->
+	<!-- All -->
+
+
+
+
+
+
