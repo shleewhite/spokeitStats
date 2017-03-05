@@ -63,20 +63,23 @@ var ePercent = [];
 var mPercent = [];
 var hPercent = [];
 
-
-// --- Mouse Event ---
-// on click change chart
-var chartNum = 0;
-canvas.onclick = function (e) {
-    //console.log(chartNum);
-    ++chartNum;
-    if (chartNum > dates.length) {
-        chartNum = 0;
+//when chart type changed, chart change reflect option selected
+$('#type').val('selectedvalue').change(function() {
+    if (this.value == "gen") { setChart(0); }
+    else if (this.value == "diff") { setChart(1); } 
+    else if (this.value == "point") { setChart(0); }
+    else { 
+        setChart(2); 
+        document.getElementById('acc-q').style.display = "block";
+        document.getElementById('acc-opt').style.display = "block";
     }
-    setChart(chartNum);
-}
+    if (this.value != "acc") {
+        document.getElementById('acc-q').style.display = "none";
+        document.getElementById('acc-opt').style.display = "none";
+    }
+});
 
-//when time range changed, chart && dataList to reflect option selected
+//when time range changed, chart && dataList change to reflect option selected
 $('#dateRange').val('selectedvalue').change(function() {
     if (this.value == "7") { dataList = wData; }
     else if (this.value == "30") { dataList = mData; }
@@ -240,4 +243,4 @@ function setChart(index) {
 
 }
 
-setChart(chartNum);
+setChart(0);

@@ -5,10 +5,18 @@
 <div id="menu">
 	<h3>View Options:</h3>
 	<p>Data Type:</p>
-	<select>
-		<option>General Overview</option>
-		<option>Accuracy</option>
-		<option>Difficulty</option>
+	<select id="type">
+		<option value="gen">General Overview</option>
+		<option value="point">Points</option>
+		<option value="diff">Difficulty</option>
+		<option value="acc">Accuracy</option>
+	</select>
+	<p id="acc-q">Consonants, Syllables, or Both?</p>
+	<select id="acc-opt">
+		<option value="all">Both</option>
+		<option value="con">Consonants</option>
+		<option value="syl">Syllables</option>
+	</select>
 	</select>
 	<p id="consonant-q">Consonants:</p>
 	<select name= "consonants" id="consonant-opt">
@@ -32,7 +40,7 @@
 		<option value="3">3</option>
 	</select>
 	<p>Time Range:</p>
-	<select id="dateRange" name="dateRange">
+	<select id="dateRange">
 		<option value="7">Last 7 Days</option>
 		<option value="30">Last 30 Days</option>
 		<option value="all">All</option>
@@ -42,40 +50,3 @@
 <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js'></script>
 <script src="Chart.bundle.js"></script>
 <script src="main.js"></script>
-
-<!-- structure of menu: -->
-<!-- What data do you want to see? -->
-	<!-- 1. Overview (points/time & time played/difficulties) ** DEFAULT -->
-	<!-- 2. Accuracy (tries/word) -->
-	<!-- 3. Difficulty (Percentages difficulty/time) -->
-<!-- if chose 2. -->
-	<!-- 4. Overview (general accuracy) -->
-	<!-- 5. Consonants -->
-	<!-- 6. Syllables -->
-<!-- if chose 5.: Which Consonants? -->
-	<!-- All (would be average accuracy) -->
-	<!-- C -->
-	<!-- D -->
-	<!-- G -->
-	<!-- K -->
-	<!-- P -->
-	<!-- T -->
-	<!-- CT -->
-	<!-- CP -->
-	<!-- DG -->
-	<!-- PT -->
-<!-- if chose 6. How Many Syllables? -->
-	<!-- All (would be average accuracy) -->
-	<!-- 1 -->
-	<!-- 2 -->
-	<!-- 3 -->
-<!-- When? -->
-	<!-- Last 7 Days (Default) -->
-	<!-- Last 30 Days -->
-	<!-- All -->
-
-
-
-
-
-
