@@ -1,5 +1,6 @@
 var canvas = document.getElementById("myChart");
 var ctx = canvas.getContext('2d');
+var currIndex;                  // index of current chart
 var currChart;                  // chart currently displayed
 var chartList = [];             // array of all charts
 
@@ -39,6 +40,7 @@ dataList = wData;
 
 // --- BAR GRAPH ---
 var dates = [];                 // array of dates represented in bar graph
+var displayDates = [];          // array of dates currently displayed
 var tScores = [];               // array of total times played on all difficulties
 var eScores = [];               // array of times played on easy difficulty
 var mScores = [];               // array of times played on medium difficulty
@@ -73,15 +75,8 @@ for (var i = 0; i < dates.length; ++i) {
     hPercent.push(hScores[i] / total);
 }
 
-
-
-
-
-
-
-
-
-
+// set displayDates to default section of dates
+displayDates = dates.slice(dates.length - 7);
 
 // --- ON CHANGE FUNCTIONS ---------------------------------------------------------------------------
 //when chart type changed in menu, change chart to reflect option selected
@@ -100,13 +95,41 @@ $('#type').val('selectedvalue').change(function() {
     }
 });
 
+//when accuracy question changed in menu, change chart and menu to reflect option selected
+$('#acc-opt').val('selectedvalue').change(function() {
+    if (this.value == "all") {
+        document.getElementById('consonant-q').style.display = "none";
+        document.getElementById('consonant-opt').style.display = "none";
+        document.getElementById('syllable-q').style.display = "none";
+        document.getElementById('syllable-opt').style.display = "none";
+    } else if (this.value == "con") {
+        document.getElementById('consonant-q').style.display = "block";
+        document.getElementById('consonant-opt').style.display = "block";
+        document.getElementById('syllable-q').style.display = "none";
+        document.getElementById('syllable-opt').style.display = "none";
+    } else {
+        document.getElementById('syllable-q').style.display = "block";
+        document.getElementById('syllable-opt').style.display = "block";
+        document.getElementById('consonant-q').style.display = "none";
+        document.getElementById('consonant-opt').style.display = "none";
+    }
+});
+
 //when time range changed in menu, change chart && dataList to reflect option selected
 $('#dateRange').val('selectedvalue').change(function() {
-    var temp = currChart;
-    if (this.value == "7") { dataList = wData; }
-    else if (this.value == "30") { dataList = mData; }
-    else { dataList = tData; }
-    setChart(1);
+    if (this.value == "7") { 
+        if (currIndex == 1) { dataList = wData; } 
+        else if (currIndex == 0 || currIndex == 2) { displayDates = dates.slice(dates.length - 7); }
+    }
+    else if (this.value == "30") { 
+        if (currIndex == 1) { dataList = mData; } 
+        else if (currIndex == 0 || currIndex == 2) { displayDates = dates.slice(dates.length - 30); }
+    }
+    else { 
+        if (currIndex == 1) { dataList = tData; } 
+        else if (currIndex == 0 || currIndex == 2) { displayDates = dates; }
+    }
+    setChart(currIndex);
 });
 
 // --- CHARTS --------------------------------------------------------------------------------------
@@ -116,13 +139,13 @@ var build0 = function() {
     var myChart = new Chart(ctx, {
         type: 'bar',
         data: {
-            labels: dates,
+            labels: displayDates,
             datasets: [{
                 type: 'bar',
                 label: 'Rounds Played',
                 labels: dates,
                 data: tScores,
-                backgroundColor: 'rgba(255, 150, 0, 0.3)'
+                backgroundColor: 'rgba(255, 242, 0, 0.4)'
             }, 
             {
                 type: 'line',
@@ -146,27 +169,7 @@ var build0 = function() {
     })
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// CHART 1: points as a line graph
 var build1 = function () {
     var myChart = new Chart(ctx, {
         type: 'line',
@@ -190,14 +193,7 @@ var build1 = function () {
             scales: {
                 xAxes: [{
                     type: 'time',
-                    time: {
-                        unit: 'day'
-                    }
-                }],
-                yAxes: [{
-                    ticks: {
-                        beginAtZero: true
-                    }
+                    time: { unit: 'day' }
                 }]
             }
         }
@@ -206,12 +202,12 @@ var build1 = function () {
 }
 
 
-//chart 2
+// CHART 2: Various difficulties shown as a bar graph
 var build2 = function () {
     var myChart2 = new Chart(ctx, {
         type: 'bar',
         data: {
-            labels: dates,
+            labels: displayDates,
             datasets: [{
                 label: 'Easy',
                 data: eScores,
@@ -237,14 +233,7 @@ var build2 = function () {
                 position: 'right'
             },
             scales: {
-                xAxes: [{
-                }],
-                yAxes: [{
-                    ticks: {
-                        beginAtZero: true
-                    },
-                    stacked: true
-                }]
+                yAxes: [{ stacked: true }]
             }
         }
     });
@@ -257,7 +246,7 @@ var build3 = function () {
     var myChart3 = new Chart(ctx, {
         type: 'bar',
         data: {
-            labels: dates,
+            labels: displayDates,
             datasets: [{
                 label: 'Easy',
                 data: ePercent,
@@ -285,12 +274,7 @@ var build3 = function () {
             scales: {
                 xAxes: [{
                 }],
-                yAxes: [{
-                    ticks: {
-                        beginAtZero: true
-                    },
-                    stacked: true
-                }]
+                yAxes: [{ stacked: true }]
             }
         }
     });
@@ -303,14 +287,11 @@ chartList.push(build1);
 chartList.push(build2);
 chartList.push(build3);
 
-
-//switch charts
-//need to fix so works when change time range
+// setChart: loads correct chart to page based on an index (1-4)
 function setChart(index) {
-    if (currChart)
-        currChart.destroy();
+    currIndex = index;
+    if (currChart) { currChart.destroy(); }
     currChart = chartList[index]();
-
 }
 
-setChart(0);
+setChart(0);            // DEFAULT GRAPH DISPLAYED
