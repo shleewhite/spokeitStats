@@ -1,79 +1,200 @@
 var canvas = document.getElementById("myChart");
 var ctx = canvas.getContext('2d');
+var currIndex;                  // index of current chart
+var currChart;                  // chart currently displayed
+var chartList = [];             // array of all charts
 
-// current chart showing
-var currChart;
-
-//chart list for each chart
-var chartList = [];
-
+// --- DATA ----------------------------------------------------------------------------------------
 // --- LINE GRAPH ---
-// dataList holds the list of data points for line graph
-var dataList = [];
+var dataList = [];              // array of data points in line graph
+var tData = [];                 // array of all data points
+var mData = [];                 // array of 30 most recent data points
+var wData = [];                 // array of 7 most recent data points (DEFAULT LINE GRAPH DISPLAY)
 
-/*
-addPoint adds a point to the line graph with the given
-date and "score"
-*/
+// GENERATE DATA: 
+// addPoint: adds a point to tData with date and "score"
 function addPoint(year, month, day, num) {
-    dataList.push({
+    tData.push({
         x: new Date(year, month - 1, day),
         y: num
     });
 }
 
-//example for addPoint function
-addPoint(2016, 1, 12, 100);
-addPoint(2016, 2, 13, 50);
+// score: generates a random score between 0 and 100
+function score() { return Math.floor((Math.random() * 100) + 1); }
 
+// add January Data to tData
+for (var i = 1; i < 32; i++) { addPoint(2016, 1, i, score()); }
 
-// --- BAR GRAPHS ---
-// put values here
-var dates = ['3/4/2017', '3/5/2017'];
-var eScores = [20, 16];
-var mScores = [12, 10];
-var hScores = [6, 8];
+// add February Data to tData
+for (var i = 1; i < 29; i++) { addPoint(2016, 2, i, score()); }
 
-// for the averages *don't touch
-var ePercent = [];
-var mPercent = [];
-var hPercent = [];
+// for (var i = 1; i < 62; i++) { temp.push(score()); }
 
+// set wData and mData to their respective sections of tData
+wData = tData.slice(tData.length - 7);
+mData = tData.slice(tData.length - 30);
 
-// --- Mouse Event ---
-// on click change chart
-var chartNum = 0;
-canvas.onclick = function (e) {
-    //console.log(chartNum);
-    ++chartNum;
-    if (chartNum > dates.length) {
-        chartNum = 0;
-    }
-    setChart(chartNum);
+// set dataList to default section of tData
+dataList = wData;
+
+// --- BAR GRAPH ---
+var dates = [];                 // array of dates represented in bar graph
+var displayDates = [];          // array of dates currently displayed
+var tScores = [];               // array of total times played on all difficulties
+var eScores = [];               // array of times played on easy difficulty
+var mScores = [];               // array of times played on medium difficulty
+var hScores = [];               // array of times played on hard difficulty
+var try1 = [];                  // array of times word said on first try
+var try2 = [];                  // array of times word said on second try
+var try3 = [];                  // array of times word said on third try
+
+// var ePercent = [];              // array of percentages played on easy difficulty
+// var mPercent = [];              // array of percentages played on medium difficulty
+// var hPercent = [];              // array of percentages played on hard difficulty
+
+// GENERATE DATA:
+// rounds: generates a random number between 0 and 20 for the rounds played at a certain difficulty
+function rounds() { return Math.floor((Math.random() * 20) + 1); }
+
+// add January dates to dates array
+for (var i = 1; i < 32; i++) { dates.push("Jan " + i + ", 2016"); }
+
+// add February dates to dates array
+for (var i = 1; i < 29; i++) { dates.push("Feb " + i + ", 2016"); }
+
+// add random data for January and February to eScores, mScores, and hScores
+for (var i = 1; i < 62; i++) {
+    eScores.push(rounds());
+    mScores.push(rounds());
+    hScores.push(rounds());
+    try1.push(rounds());
+    try2.push(rounds());
+    try3.push(rounds());
 }
 
-// init
-//build the average list
+// calculates averages and puts them into their respective arrays
 for (var i = 0; i < dates.length; ++i) {
     var total = eScores[i] + mScores[i] + hScores[i];
-
-    ePercent.push(eScores[i] / total);
-    mPercent.push(mScores[i] / total);
-    hPercent.push(hScores[i] / total);
+    tScores.push(total);
+    // ePercent.push(eScores[i] / total);
+    // mPercent.push(mScores[i] / total);
+    // hPercent.push(hScores[i] / total);
 }
 
+// set displayDates to default section of dates
+displayDates = dates.slice(dates.length - 7);
 
-//creates the chart
-var build1 = function () {
+// --- ON CHANGE FUNCTIONS ---------------------------------------------------------------------------
+//when chart type changed in menu, change chart to reflect option selected
+$('#type').val('selectedvalue').change(function() {
+    if (this.value == "gen") {
+        displayDates = dates.slice(dates.length - 7) 
+        setChart(0); 
+    }
+    else if (this.value == "point") { 
+        dataList = wData;
+        setChart(1); 
+    }
+    else if (this.value == "diff") { 
+        displayDates = dates.slice(dates.length - 7)
+        setChart(2); 
+    } 
+    else { 
+        setChart(3); 
+        document.getElementById('acc-q').style.display = "block";
+        document.getElementById('acc-opt').style.display = "block";
+    }
+    if (this.value != "acc") {
+        document.getElementById('acc-q').style.display = "none";
+        document.getElementById('acc-opt').style.display = "none";
+    }
+});
+
+//when accuracy question changed in menu, change chart and menu to reflect option selected
+$('#acc-opt').val('selectedvalue').change(function() {
+    if (this.value == "all") {
+        document.getElementById('consonant-q').style.display = "none";
+        document.getElementById('consonant-opt').style.display = "none";
+        document.getElementById('syllable-q').style.display = "none";
+        document.getElementById('syllable-opt').style.display = "none";
+    } else if (this.value == "con") {
+        document.getElementById('consonant-q').style.display = "block";
+        document.getElementById('consonant-opt').style.display = "block";
+        document.getElementById('syllable-q').style.display = "none";
+        document.getElementById('syllable-opt').style.display = "none";
+    } else {
+        document.getElementById('syllable-q').style.display = "block";
+        document.getElementById('syllable-opt').style.display = "block";
+        document.getElementById('consonant-q').style.display = "none";
+        document.getElementById('consonant-opt').style.display = "none";
+    }
+});
+
+//when time range changed in menu, change chart && dataList to reflect option selected
+$('#dateRange').val('selectedvalue').change(function() {
+    if (this.value == "7") { 
+        if (currIndex == 1) { dataList = wData; } 
+        else if (currIndex == 0 || currIndex == 2) { displayDates = dates.slice(dates.length - 7); }
+    }
+    else if (this.value == "30") { 
+        if (currIndex == 1) { dataList = mData; } 
+        else if (currIndex == 0 || currIndex == 2) { displayDates = dates.slice(dates.length - 30); }
+    }
+    else { 
+        if (currIndex == 1) { dataList = tData; } 
+        else if (currIndex == 0 || currIndex == 2) { displayDates = dates; }
+    }
+    setChart(currIndex);
+});
+
+// --- CHARTS --------------------------------------------------------------------------------------
+
+//CHART 0: DEFAULT CHART: points as a line graph and rounds played as a bar graph
+var build0 = function() {
     var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: displayDates,
+            datasets: [{
+                type: 'bar',
+                label: 'Rounds Played',
+                labels: dates,
+                data: tScores,
+                backgroundColor: 'rgba(255, 242, 0, 0.4)'
+            }, 
+            {
+                type: 'line',
+                label: 'Points Scored',
+                data: tData,
+                fill: false,
+                borderColor: 'rgba(0,0,255, 0.2)'
+            }]
+        },
+        options: {
+            title: {
+                display: true,
+                text: 'Total Points Scored and Rounds Played',
+                position: 'top'
+            },
+            legend: {
+                display: true,
+                position: 'right'
+            }
+        }
+    });
+    return myChart;
+}
+
+// CHART 1: points as a line graph
+var build1 = function () {
+    var myChart1 = new Chart(ctx, {
         type: 'line',
         data: {
             datasets: [{
                 label: 'Points',
                 data: dataList,
-                backgroundColor: [
-                    'rgba(0,0,255, 0.2)'
-                ]
+                backgroundColor: 'rgba(0,0,255, 0.2)'
             }]
         },
         options: {
@@ -89,29 +210,21 @@ var build1 = function () {
             scales: {
                 xAxes: [{
                     type: 'time',
-                    time: {
-                        unit: 'day'
-                    }
-                }],
-                yAxes: [{
-                    ticks: {
-                        beginAtZero: true
-                    }
+                    time: { unit: 'day' }
                 }]
             }
         }
     });
-    return myChart;
+    return myChart1;
 }
-chartList.push(build1);
 
 
-//chart 2
+// CHART 2: Various difficulties shown as a bar graph
 var build2 = function () {
     var myChart2 = new Chart(ctx, {
         type: 'bar',
         data: {
-            labels: ["3/4/2017", "3/5/2017"],
+            labels: displayDates,
             datasets: [{
                 label: 'Easy',
                 data: eScores,
@@ -137,46 +250,38 @@ var build2 = function () {
                 position: 'right'
             },
             scales: {
-                xAxes: [{
-                }],
-                yAxes: [{
-                    ticks: {
-                        beginAtZero: true
-                    },
-                    stacked: true
-                }]
+                yAxes: [{ stacked: true }]
             }
         }
     });
     return myChart2;
 }
-chartList.push(build2);
 
 
-//chart 3
+// CHART 3: Syllables/Consonants accuracy shown as a bar graph
 var build3 = function () {
     var myChart3 = new Chart(ctx, {
         type: 'bar',
         data: {
-            labels: ["3/4/2017", "3/5/2017"],
+            labels: displayDates,
             datasets: [{
-                label: 'Easy',
-                data: ePercent,
-                backgroundColor: 'rgba(0,255,0, 0.2)'
+                label: 'First Try',
+                data: try1,
+                backgroundColor: 'rgba(0, 0, 255, 0.3)'
             }, {
-                label: 'Medium',
-                data: mPercent,
-                backgroundColor: 'rgba(255, 150, 0, 0.2)'
+                label: 'Second Try',
+                data: try2,
+                backgroundColor: 'rgba(0, 255, 250, 0.3)'
             }, {
-                label: 'Hard',
-                data: hPercent,
-                backgroundColor: 'rgba(255,0,0,0.2)'
+                label: 'Third Try',
+                data: try3,
+                backgroundColor: 'rgba(0, 255, 161, 0.3)'
             }]
         },
         options: {
             title: {
                 display: true,
-                text: 'Percentages of Each Difficulty Played',
+                text: 'Accuracy for Consonants and Syllables',
                 position: 'top'
             },
             legend: {
@@ -184,28 +289,24 @@ var build3 = function () {
                 position: 'right'
             },
             scales: {
-                xAxes: [{
-                }],
-                yAxes: [{
-                    ticks: {
-                        beginAtZero: true
-                    },
-                    stacked: true
-                }]
+                yAxes: [{ stacked: true }]
             }
         }
     });
     return myChart3;
 }
+
+// Put all charts into chartList array
+chartList.push(build0);
+chartList.push(build1);
+chartList.push(build2);
 chartList.push(build3);
 
-
-//switch charts
+// setChart: loads correct chart to page based on an index (1-4)
 function setChart(index) {
-    if (currChart)
-        currChart.destroy();
+    currIndex = index;
+    if (currChart) { currChart.destroy(); }
     currChart = chartList[index]();
-
 }
 
-setChart(chartNum);
+setChart(0);            // DEFAULT GRAPH DISPLAYED

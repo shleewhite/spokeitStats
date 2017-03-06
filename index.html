@@ -1,3 +1,66 @@
+<link rel='stylesheet' type='text/css' href='main.css'>
+
 <canvas id="myChart" width="400" height="190"></canvas>
+<div id="menu">
+	<h3>View Options:</h3>
+	<p>Data Type:</p>
+	<select id="type">
+		<option value="gen">General Overview</option>
+		<option value="point">Points</option>
+		<option value="diff">Difficulty</option>
+		<option value="acc">Accuracy</option>
+	</select>
+	<p id="acc-q">Consonants, Syllables, or Both?</p>
+	<select id="acc-opt">
+		<option value="all">Both</option>
+		<option value="con">Consonants</option>
+		<option value="syl">Syllables</option>
+	</select>
+	</select>
+	<p id="consonant-q">Consonants:</p>
+	<select name= "consonants" id="consonant-opt">
+		<option value="all">All</option>
+		<option value="B">B</option>
+		<option value="C">C</option>
+		<option value="D">D</option>
+		<option value="G">G</option>
+		<option value="K">K</option>
+		<option value="P">P</option>
+		<option value="S">S</option>
+		<option value="T">T</option>
+		<option value="BC">BC</option>
+		<option value="BD">BD</option>
+		<option value="BG">BG</option>
+		<option value="BK">BK</option>
+		<option value="BT">BT</option>
+		<option value="CT">CT</option>
+		<option value="DC">DC</option>
+		<option value="GD">GD</option>
+		<option value="GP">GP</option>
+		<option value="GS">GS</option>
+		<option value="KS">KS</option>
+		<option value="KT">KT</option>
+		<option value="PD">PD</option>
+		<option value="PP">PP</option>
+		<option value="PS">PS</option>
+		<option value="TB">TB</option>
+		<option value="TD">TD</option>
+	</select>
+	<p id="syllable-q">Syllables:</p>
+	<select id="syllable-opt">
+		<option value="all">All</option>
+		<option value="1">1</option>
+		<option value="2">2</option>
+		<option value="3">3</option>
+	</select>
+	<p>Time Range:</p>
+	<select id="dateRange">
+		<option value="7">Last 7 Days</option>
+		<option value="30">Last 30 Days</option>
+		<option value="all">All</option>
+	</select>
+</div>
+
+<script src='https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js'></script>
 <script src="Chart.bundle.js"></script>
 <script src="main.js"></script>
