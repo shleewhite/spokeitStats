@@ -161,14 +161,14 @@ var build0 = function() {
                 label: 'Rounds Played',
                 labels: dates,
                 data: tScores,
-                backgroundColor: 'rgba(255, 242, 0, 0.4)'
+                backgroundColor: 'rgba(255, 242, 0, 0.5)'
             }, 
             {
                 type: 'line',
                 label: 'Points Scored',
                 data: tData,
                 fill: false,
-                borderColor: 'rgba(0,0,255, 0.2)'
+                borderColor: 'rgba(0,0,255, 0.5)'
             }]
         },
         options: {
@@ -194,7 +194,7 @@ var build1 = function () {
             datasets: [{
                 label: 'Points',
                 data: dataList,
-                backgroundColor: 'rgba(0,0,255, 0.2)'
+                backgroundColor: 'rgba(0,0,255, 0.5)'
             }]
         },
         options: {
@@ -228,15 +228,15 @@ var build2 = function () {
             datasets: [{
                 label: 'Easy',
                 data: eScores,
-                backgroundColor: 'rgba(0,255,0, 0.2)'
+                backgroundColor: 'rgba(0,255,0, 0.5)'
             }, {
                 label: 'Medium',
                 data: mScores,
-                backgroundColor: 'rgba(255, 150, 0, 0.2)'
+                backgroundColor: 'rgba(255, 150, 0, 0.5)'
             }, {
                 label: 'Hard',
                 data: hScores,
-                backgroundColor: 'rgba(255,0,0,0.2)'
+                backgroundColor: 'rgba(255, 0, 0, 0.5)'
             }]
         },
         options: {
@@ -267,15 +267,15 @@ var build3 = function () {
             datasets: [{
                 label: 'First Try',
                 data: try1,
-                backgroundColor: 'rgba(0, 0, 255, 0.3)'
+                backgroundColor: 'rgba(0, 0, 255, 0.5)'
             }, {
                 label: 'Second Try',
                 data: try2,
-                backgroundColor: 'rgba(0, 255, 250, 0.3)'
+                backgroundColor: 'rgba(0, 255, 250, 0.5)'
             }, {
                 label: 'Third Try',
                 data: try3,
-                backgroundColor: 'rgba(0, 255, 161, 0.3)'
+                backgroundColor: 'rgba(0, 255, 161, 0.5)'
             }]
         },
         options: {
