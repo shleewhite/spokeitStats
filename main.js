@@ -45,9 +45,13 @@ var tScores = [];               // array of total times played on all difficulti
 var eScores = [];               // array of times played on easy difficulty
 var mScores = [];               // array of times played on medium difficulty
 var hScores = [];               // array of times played on hard difficulty
-var ePercent = [];              // array of percentages played on easy difficulty
-var mPercent = [];              // array of percentages played on medium difficulty
-var hPercent = [];              // array of percentages played on hard difficulty
+var try1 = [];                  // array of times word said on first try
+var try2 = [];                  // array of times word said on second try
+var try3 = [];                  // array of times word said on third try
+
+// var ePercent = [];              // array of percentages played on easy difficulty
+// var mPercent = [];              // array of percentages played on medium difficulty
+// var hPercent = [];              // array of percentages played on hard difficulty
 
 // GENERATE DATA:
 // rounds: generates a random number between 0 and 20 for the rounds played at a certain difficulty
@@ -64,15 +68,18 @@ for (var i = 1; i < 62; i++) {
     eScores.push(rounds());
     mScores.push(rounds());
     hScores.push(rounds());
+    try1.push(rounds());
+    try2.push(rounds());
+    try3.push(rounds());
 }
 
 // calculates averages and puts them into their respective arrays
 for (var i = 0; i < dates.length; ++i) {
     var total = eScores[i] + mScores[i] + hScores[i];
     tScores.push(total);
-    ePercent.push(eScores[i] / total);
-    mPercent.push(mScores[i] / total);
-    hPercent.push(hScores[i] / total);
+    // ePercent.push(eScores[i] / total);
+    // mPercent.push(mScores[i] / total);
+    // hPercent.push(hScores[i] / total);
 }
 
 // set displayDates to default section of dates
@@ -250,30 +257,30 @@ var build2 = function () {
 }
 
 
-//chart 3
+// CHART 3: Syllables/Consonants accuracy shown as a bar graph
 var build3 = function () {
     var myChart3 = new Chart(ctx, {
         type: 'bar',
         data: {
             labels: displayDates,
             datasets: [{
-                label: 'Easy',
-                data: ePercent,
-                backgroundColor: 'rgba(0,255,0, 0.2)'
+                label: 'First Try',
+                data: try1,
+                backgroundColor: 'rgba(0, 0, 255, 0.3)'
             }, {
-                label: 'Medium',
-                data: mPercent,
-                backgroundColor: 'rgba(255, 150, 0, 0.2)'
+                label: 'Second Try',
+                data: try2,
+                backgroundColor: 'rgba(0, 255, 250, 0.3)'
             }, {
-                label: 'Hard',
-                data: hPercent,
-                backgroundColor: 'rgba(255,0,0,0.2)'
+                label: 'Third Try',
+                data: try3,
+                backgroundColor: 'rgba(0, 255, 161, 0.3)'
             }]
         },
         options: {
             title: {
                 display: true,
-                text: 'Percentages of Each Difficulty Played',
+                text: 'Accuracy for Consonants and Syllables',
                 position: 'top'
             },
             legend: {
@@ -281,8 +288,6 @@ var build3 = function () {
                 position: 'right'
             },
             scales: {
-                xAxes: [{
-                }],
                 yAxes: [{ stacked: true }]
             }
         }
