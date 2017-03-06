@@ -81,9 +81,18 @@ displayDates = dates.slice(dates.length - 7);
 // --- ON CHANGE FUNCTIONS ---------------------------------------------------------------------------
 //when chart type changed in menu, change chart to reflect option selected
 $('#type').val('selectedvalue').change(function() {
-    if (this.value == "gen") { setChart(0); }
-    else if (this.value == "diff") { setChart(2); } 
-    else if (this.value == "point") { setChart(1); }
+    if (this.value == "gen") {
+        displayDates = dates.slice(dates.length - 7) 
+        setChart(0); 
+    }
+    else if (this.value == "point") { 
+        dataList = wData;
+        setChart(1); 
+    }
+    else if (this.value == "diff") { 
+        displayDates = dates.slice(dates.length - 7)
+        setChart(2); 
+    } 
     else { 
         setChart(3); 
         document.getElementById('acc-q').style.display = "block";
