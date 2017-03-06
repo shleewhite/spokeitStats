@@ -1,26 +1,17 @@
 var canvas = document.getElementById("myChart");
 var ctx = canvas.getContext('2d');
+var currChart;                  // chart currently displayed
+var chartList = [];             // array of all charts
 
-// current chart showing
-var currChart;
-
-//chart list for each chart
-var chartList = [];
-
+// --- DATA ----------------------------------------------------------------------------------------
 // --- LINE GRAPH ---
-// dataList holds the list of data points in line graph
-// wData holds list of seven most recent data points
-// mData holds list of 30 most recent data points
-// tData holds list of all data points
-var dataList = [];
-var wData = [];
-var mData = [];
-var tData = [];
+var dataList = [];              // array of data points in line graph
+var tData = [];                 // array of all data points
+var mData = [];                 // array of 30 most recent data points
+var wData = [];                 // array of 7 most recent data points (DEFAULT LINE GRAPH DISPLAY)
 
-/*
-addPoint adds a point to the line graph with the given
-date and "score"
-*/
+// GENERATE DATA: 
+// addPoint: adds a point to tData with date and "score"
 function addPoint(year, month, day, num) {
     tData.push({
         x: new Date(year, month - 1, day),
@@ -28,48 +19,78 @@ function addPoint(year, month, day, num) {
     });
 }
 
-//generates a random score between 0 and 100
-function score() {
-    return Math.floor((Math.random() * 100) + 1);
-}
+// score: generates a random score between 0 and 100
+function score() { return Math.floor((Math.random() * 100) + 1); }
 
-//example for addPoint function
-//January
-addPoint(2016, 1, 12, score());
-addPoint(2016, 1, 15, score());
-addPoint(2016, 1, 20, score());
-addPoint(2016, 1, 27, score());
-addPoint(2016, 1, 28, score());
-//February
-for (var i = 1; i < 29; i++) {
-    addPoint(2016, 2, i, score());
-}
+// add January Data to tData
+for (var i = 1; i < 32; i++) { addPoint(2016, 1, i, score()); }
 
-wData = tData.slice(tData.length -7);
-mData = tData.slice(tData.length-30);
+// add February Data to tData
+for (var i = 1; i < 29; i++) { addPoint(2016, 2, i, score()); }
 
-//DEFAULT: dataList shown is wData;
+// for (var i = 1; i < 62; i++) { temp.push(score()); }
+
+// set wData and mData to their respective sections of tData
+wData = tData.slice(tData.length - 7);
+mData = tData.slice(tData.length - 30);
+
+// set dataList to default section of tData
 dataList = wData;
 
-// --- BAR GRAPHS ---
-// put values here
-var dates = ['3/4/2017', '3/5/2017'];
-var eScores = [20, 16];
-var mScores = [12, 10];
-var hScores = [6, 8];
+// --- BAR GRAPH ---
+var dates = [];                 // array of dates represented in bar graph
+var tScores = [];               // array of total times played on all difficulties
+var eScores = [];               // array of times played on easy difficulty
+var mScores = [];               // array of times played on medium difficulty
+var hScores = [];               // array of times played on hard difficulty
+var ePercent = [];              // array of percentages played on easy difficulty
+var mPercent = [];              // array of percentages played on medium difficulty
+var hPercent = [];              // array of percentages played on hard difficulty
 
-// for the averages *don't touch
-var ePercent = [];
-var mPercent = [];
-var hPercent = [];
+// GENERATE DATA:
+// rounds: generates a random number between 0 and 20 for the rounds played at a certain difficulty
+function rounds() { return Math.floor((Math.random() * 20) + 1); }
 
-//when chart type changed, chart change reflect option selected
+// add January dates to dates array
+for (var i = 1; i < 32; i++) { dates.push("Jan " + i + ", 2016"); }
+
+// add February dates to dates array
+for (var i = 1; i < 29; i++) { dates.push("Feb " + i + ", 2016"); }
+
+// add random data for January and February to eScores, mScores, and hScores
+for (var i = 1; i < 62; i++) {
+    eScores.push(rounds());
+    mScores.push(rounds());
+    hScores.push(rounds());
+}
+
+// calculates averages and puts them into their respective arrays
+for (var i = 0; i < dates.length; ++i) {
+    var total = eScores[i] + mScores[i] + hScores[i];
+    tScores.push(total);
+    ePercent.push(eScores[i] / total);
+    mPercent.push(mScores[i] / total);
+    hPercent.push(hScores[i] / total);
+}
+
+
+
+
+
+
+
+
+
+
+
+// --- ON CHANGE FUNCTIONS ---------------------------------------------------------------------------
+//when chart type changed in menu, change chart to reflect option selected
 $('#type').val('selectedvalue').change(function() {
     if (this.value == "gen") { setChart(0); }
-    else if (this.value == "diff") { setChart(1); } 
-    else if (this.value == "point") { setChart(0); }
+    else if (this.value == "diff") { setChart(2); } 
+    else if (this.value == "point") { setChart(1); }
     else { 
-        setChart(2); 
+        setChart(3); 
         document.getElementById('acc-q').style.display = "block";
         document.getElementById('acc-opt').style.display = "block";
     }
@@ -79,26 +100,73 @@ $('#type').val('selectedvalue').change(function() {
     }
 });
 
-//when time range changed, chart && dataList change to reflect option selected
+//when time range changed in menu, change chart && dataList to reflect option selected
 $('#dateRange').val('selectedvalue').change(function() {
+    var temp = currChart;
     if (this.value == "7") { dataList = wData; }
     else if (this.value == "30") { dataList = mData; }
     else { dataList = tData; }
-    setChart(0);
+    setChart(1);
 });
 
-// init
-//build the average list
-for (var i = 0; i < dates.length; ++i) {
-    var total = eScores[i] + mScores[i] + hScores[i];
+// --- CHARTS --------------------------------------------------------------------------------------
 
-    ePercent.push(eScores[i] / total);
-    mPercent.push(mScores[i] / total);
-    hPercent.push(hScores[i] / total);
+//CHART 0: DEFAULT CHART: points as a line graph and rounds played as a bar graph
+var build0 = function() {
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: dates,
+            datasets: [{
+                type: 'bar',
+                label: 'Rounds Played',
+                labels: dates,
+                data: tScores,
+                backgroundColor: 'rgba(255, 150, 0, 0.3)'
+            }, 
+            {
+                type: 'line',
+                label: 'Points Scored',
+                data: tData,
+                fill: false,
+                borderColor: 'rgba(0,0,255, 0.2)'
+            }]
+        },
+        options: {
+            title: {
+                display: true,
+                text: 'Total Points Scored and Rounds Played',
+                position: 'top'
+            },
+            legend: {
+                display: true,
+                position: 'right'
+            }
+        }
+    })
 }
 
 
-//creates the chart
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 var build1 = function () {
     var myChart = new Chart(ctx, {
         type: 'line',
@@ -106,9 +174,7 @@ var build1 = function () {
             datasets: [{
                 label: 'Points',
                 data: dataList,
-                backgroundColor: [
-                    'rgba(0,0,255, 0.2)'
-                ]
+                backgroundColor: 'rgba(0,0,255, 0.2)'
             }]
         },
         options: {
@@ -138,7 +204,6 @@ var build1 = function () {
     });
     return myChart;
 }
-chartList.push(build1);
 
 
 //chart 2
@@ -146,7 +211,7 @@ var build2 = function () {
     var myChart2 = new Chart(ctx, {
         type: 'bar',
         data: {
-            labels: ["3/4/2017", "3/5/2017"],
+            labels: dates,
             datasets: [{
                 label: 'Easy',
                 data: eScores,
@@ -185,7 +250,6 @@ var build2 = function () {
     });
     return myChart2;
 }
-chartList.push(build2);
 
 
 //chart 3
@@ -193,7 +257,7 @@ var build3 = function () {
     var myChart3 = new Chart(ctx, {
         type: 'bar',
         data: {
-            labels: ["3/4/2017", "3/5/2017"],
+            labels: dates,
             datasets: [{
                 label: 'Easy',
                 data: ePercent,
@@ -232,10 +296,16 @@ var build3 = function () {
     });
     return myChart3;
 }
+
+// Put all charts into chartList array
+chartList.push(build0);
+chartList.push(build1);
+chartList.push(build2);
 chartList.push(build3);
 
 
 //switch charts
+//need to fix so works when change time range
 function setChart(index) {
     if (currChart)
         currChart.destroy();
