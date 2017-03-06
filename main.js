@@ -182,12 +182,13 @@ var build0 = function() {
                 position: 'right'
             }
         }
-    })
+    });
+    return myChart;
 }
 
 // CHART 1: points as a line graph
 var build1 = function () {
-    var myChart = new Chart(ctx, {
+    var myChart1 = new Chart(ctx, {
         type: 'line',
         data: {
             datasets: [{
@@ -214,7 +215,7 @@ var build1 = function () {
             }
         }
     });
-    return myChart;
+    return myChart1;
 }
 
 
