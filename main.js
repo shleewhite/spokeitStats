@@ -89,18 +89,22 @@ displayDates = dates.slice(dates.length - 7);
 //when chart type changed in menu, change chart to reflect option selected
 $('#type').val('selectedvalue').change(function() {
     if (this.value == "gen") {
-        displayDates = dates.slice(dates.length - 7) 
+        displayDates = dates.slice(dates.length - 7);
+        $("#dateRange").val('selectedvalue').val("7");
         setChart(0); 
     }
     else if (this.value == "point") { 
         dataList = wData;
+        $("#dateRange").val('selectedvalue').val("7");
         setChart(1); 
     }
     else if (this.value == "diff") { 
-        displayDates = dates.slice(dates.length - 7)
+        displayDates = dates.slice(dates.length - 7);
+        $("#dateRange").val('selectedvalue').val("7");
         setChart(2); 
     } 
     else { 
+        $("#dateRange").val('selectedvalue').val("7");
         setChart(3); 
         document.getElementById('acc-q').style.display = "block";
         document.getElementById('acc-opt').style.display = "block";
@@ -134,21 +138,22 @@ $('#acc-opt').val('selectedvalue').change(function() {
 //when time range changed in menu, change chart && dataList to reflect option selected
 $('#dateRange').val('selectedvalue').change(function() {
     if (this.value == "7") { 
-        if (currIndex == 1) { dataList = wData; } 
-        else if (currIndex == 0 || currIndex == 2) { displayDates = dates.slice(dates.length - 7); }
+        if (currIndex == 1 || currIndex == 1) { dataList = wData; } 
+        if (currIndex == 0 || currIndex == 2) { displayDates = dates.slice(dates.length - 7); }
     }
     else if (this.value == "30") { 
-        if (currIndex == 1) { dataList = mData; } 
-        else if (currIndex == 0 || currIndex == 2) { displayDates = dates.slice(dates.length - 30); }
+        if (currIndex == 0 || currIndex == 1) { dataList = mData; } 
+        if (currIndex == 0 || currIndex == 2) { displayDates = dates.slice(dates.length - 30); }
     }
     else { 
-        if (currIndex == 1) { dataList = tData; } 
-        else if (currIndex == 0 || currIndex == 2) { displayDates = dates; }
+        if (currIndex == 0 || currIndex == 1) { dataList = tData; } 
+        if (currIndex == 0 || currIndex == 2) { displayDates = dates; }
     }
     setChart(currIndex);
 });
 
 // --- CHARTS --------------------------------------------------------------------------------------
+
 
 //CHART 0: DEFAULT CHART: points as a line graph and rounds played as a bar graph
 var build0 = function() {
@@ -158,15 +163,15 @@ var build0 = function() {
             labels: displayDates,
             datasets: [{
                 type: 'bar',
-                label: 'Rounds Played',
+                label: 'Number of Rounds Played',
                 labels: dates,
                 data: tScores,
                 backgroundColor: 'rgba(255, 242, 0, 0.5)'
             }, 
             {
                 type: 'line',
-                label: 'Points Scored',
-                data: tData,
+                label: 'Number Points Scored',
+                data: dataList,
                 fill: false,
                 borderColor: 'rgba(0,0,255, 0.5)'
             }]
@@ -174,8 +179,9 @@ var build0 = function() {
         options: {
             title: {
                 display: true,
-                text: 'Total Points Scored and Rounds Played',
-                position: 'top'
+                text: 'Total Points Scored and Number of Rounds Played',
+                position: 'top',
+                fontSize: 17
             },
             legend: {
                 display: true,
@@ -192,7 +198,7 @@ var build1 = function () {
         type: 'line',
         data: {
             datasets: [{
-                label: 'Points',
+                label: 'Number Points Scored',
                 data: dataList,
                 backgroundColor: 'rgba(0,0,255, 0.5)'
             }]
