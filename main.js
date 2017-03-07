@@ -154,7 +154,6 @@ $('#dateRange').val('selectedvalue').change(function() {
 
 // --- CHARTS --------------------------------------------------------------------------------------
 
-
 //CHART 0: DEFAULT CHART: points as a line graph and rounds played as a bar graph
 var build0 = function() {
     var myChart = new Chart(ctx, {
@@ -255,9 +254,7 @@ var build2 = function () {
                 display: true,
                 position: 'right'
             },
-            scales: {
-                yAxes: [{ stacked: true }]
-            }
+            scales: { yAxes: [{ stacked: true }] }
         }
     });
     return myChart2;
@@ -294,9 +291,7 @@ var build3 = function () {
                 display: true,
                 position: 'right'
             },
-            scales: {
-                yAxes: [{ stacked: true }]
-            }
+            scales: { yAxes: [{ stacked: true }] }
         }
     });
     return myChart3;
