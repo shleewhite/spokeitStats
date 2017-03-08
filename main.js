@@ -105,6 +105,9 @@ $('#type').val('selectedvalue').change(function() {
     } 
     else { 
         displayDates = dates.slice(dates.length - 7);
+        dispT1 = try1.slice(try1.length - 7);
+        dispT2 = try2.slice(try2.length - 7);
+        dispT3 = try3.slice(try3.length - 7);
         $("#dateRange").val('selectedvalue').val("7");
         setChart(2); 
         document.getElementById('acc-q').style.display = "block";
