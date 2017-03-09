@@ -45,13 +45,14 @@ var tScores = [];               // array of total times played on all difficulti
 var eScores = [];               // array of times played on easy difficulty
 var mScores = [];               // array of times played on medium difficulty
 var hScores = [];               // array of times played on hard difficulty
-var try1 = [];                  // array of times word said on first try
-var try2 = [];                  // array of times word said on second try
-var try3 = [];                  // array of times word said on third try
+var try1 = [];                  // array of percentage word said on first try (out of total words said in day)
+var try2 = [];                  // array of percentage word said on second try (out of total words said in day)
+var try3 = [];                  // array of percentage word said on third try (out of total words said in day)
+var dispT1 = [];                // subarray of try1 currently displayed
+var dispT2 = [];                // subarray of try2 currently displayed
+var dispT3 = [];                // subarray of try3 currently displayed
 
-// var ePercent = [];              // array of percentages played on easy difficulty
-// var mPercent = [];              // array of percentages played on medium difficulty
-// var hPercent = [];              // array of percentages played on hard difficulty
+
 
 // GENERATE DATA:
 // rounds: generates a random number between 0 and 20 for the rounds played at a certain difficulty
@@ -64,23 +65,28 @@ for (var i = 1; i < 32; i++) { dates.push("Jan " + i + ", 2016"); }
 for (var i = 1; i < 29; i++) { dates.push("Feb " + i + ", 2016"); }
 
 // add random data for January and February to eScores, mScores, and hScores
-for (var i = 1; i < 62; i++) {
+for (var i = 1; i < 60 ; i++) {
     eScores.push(rounds());
     mScores.push(rounds());
     hScores.push(rounds());
-    try1.push(rounds());
-    try2.push(rounds());
-    try3.push(rounds());
 }
 
 // calculates averages and puts them into their respective arrays
 for (var i = 0; i < dates.length; ++i) {
     var total = eScores[i] + mScores[i] + hScores[i];
     tScores.push(total);
-    // ePercent.push(eScores[i] / total);
-    // mPercent.push(mScores[i] / total);
-    // hPercent.push(hScores[i] / total);
+    eScore = (eScores[i] / total) * 100;
+    mScore = (mScores[i] / total) * 100;
+    hScore = (hScores[i] / total) * 100;
+    try1.push(eScore);
+    try2.push(mScore);
+    try3.push(hScore);
 }
+
+// set dispTX to default sections of arrays
+dispT1 = try1.slice(try1.length - 7);
+dispT2 = try2.slice(try2.length - 7);
+dispT3 = try3.slice(try3.length - 7);
 
 // set displayDates to default section of dates
 displayDates = dates.slice(dates.length - 7);
@@ -92,20 +98,18 @@ $('#type').val('selectedvalue').change(function() {
         displayDates = dates.slice(dates.length - 7);
         $("#dateRange").val('selectedvalue').val("7");
         setChart(0); 
-    }
-    else if (this.value == "point") { 
-        dataList = wData;
-        $("#dateRange").val('selectedvalue').val("7");
-        setChart(1); 
-    }
-    else if (this.value == "diff") { 
+    } else if (this.value == "diff") { 
         displayDates = dates.slice(dates.length - 7);
         $("#dateRange").val('selectedvalue').val("7");
-        setChart(2); 
+        setChart(1); 
     } 
     else { 
+        displayDates = dates.slice(dates.length - 7);
+        dispT1 = try1.slice(try1.length - 7);
+        dispT2 = try2.slice(try2.length - 7);
+        dispT3 = try3.slice(try3.length - 7);
         $("#dateRange").val('selectedvalue').val("7");
-        setChart(3); 
+        setChart(2); 
         document.getElementById('acc-q').style.display = "block";
         document.getElementById('acc-opt').style.display = "block";
     }
@@ -138,16 +142,29 @@ $('#acc-opt').val('selectedvalue').change(function() {
 //when time range changed in menu, change chart && dataList to reflect option selected
 $('#dateRange').val('selectedvalue').change(function() {
     if (this.value == "7") { 
-        if (currIndex == 1 || currIndex == 1) { dataList = wData; } 
-        if (currIndex == 0 || currIndex == 2) { displayDates = dates.slice(dates.length - 7); }
-    }
-    else if (this.value == "30") { 
-        if (currIndex == 0 || currIndex == 1) { dataList = mData; } 
-        if (currIndex == 0 || currIndex == 2) { displayDates = dates.slice(dates.length - 30); }
-    }
-    else { 
-        if (currIndex == 0 || currIndex == 1) { dataList = tData; } 
-        if (currIndex == 0 || currIndex == 2) { displayDates = dates; }
+        if (currIndex == 0) { dataList = wData; }
+        if (currIndex == 2) {
+            dispT1 = try1.slice(try1.length - 7);
+            dispT2 = try2.slice(try2.length - 7);
+            dispT3 = try3.slice(try3.length - 7);
+        }
+        displayDates = dates.slice(dates.length - 7); 
+    } else if (this.value == "30") { 
+        if (currIndex == 0) { dataList = mData; }
+        if (currIndex == 2) {
+            dispT1 = try1.slice(try1.length - 30);
+            dispT2 = try2.slice(try2.length - 30);
+            dispT3 = try3.slice(try3.length - 30);
+        }
+        displayDates = dates.slice(dates.length - 30); 
+    } else { 
+        if (currIndex == 0) { dataList = tData; }
+        if (currIndex == 2) {
+            dispT1 = try1;
+            dispT2 = try2;
+            dispT3 = try3;
+        }
+        displayDates = dates; 
     }
     setChart(currIndex);
 });
@@ -191,41 +208,8 @@ var build0 = function() {
     return myChart;
 }
 
-// CHART 1: points as a line graph
+// CHART 1: Various difficulties shown as a bar graph
 var build1 = function () {
-    var myChart1 = new Chart(ctx, {
-        type: 'line',
-        data: {
-            datasets: [{
-                label: 'Number Points Scored',
-                data: dataList,
-                backgroundColor: 'rgba(0,0,255, 0.5)'
-            }]
-        },
-        options: {
-            title: {
-                display: true,
-                text: 'Total Points Scored',
-                position: 'top'
-            },
-            legend: {
-                display: true,
-                position: 'right'
-            },
-            scales: {
-                xAxes: [{
-                    type: 'time',
-                    time: { unit: 'day' }
-                }]
-            }
-        }
-    });
-    return myChart1;
-}
-
-
-// CHART 2: Various difficulties shown as a bar graph
-var build2 = function () {
     var myChart2 = new Chart(ctx, {
         type: 'bar',
         data: {
@@ -248,7 +232,8 @@ var build2 = function () {
             title: {
                 display: true,
                 text: 'User Game Play Progress',
-                position: 'top'
+                position: 'top',
+                fontSize: 17
             },
             legend: {
                 display: true,
@@ -260,38 +245,43 @@ var build2 = function () {
     return myChart2;
 }
 
-
-// CHART 3: Syllables/Consonants accuracy shown as a bar graph
-var build3 = function () {
+// CHART 2: Syllables/Consonants accuracy shown as a bar graph
+var build2 = function () {
     var myChart3 = new Chart(ctx, {
-        type: 'bar',
+        type: 'line',
         data: {
             labels: displayDates,
             datasets: [{
+                type: 'line',
                 label: 'First Try',
-                data: try1,
-                backgroundColor: 'rgba(0, 0, 255, 0.5)'
+                data: dispT1,
+                fill: false,
+                borderColor: 'rgba(0, 0, 255, 0.5)'
             }, {
+                type: 'line',
                 label: 'Second Try',
-                data: try2,
-                backgroundColor: 'rgba(0, 255, 250, 0.5)'
+                data: dispT2,
+                fill: false,
+                borderColor: 'rgba(0, 255, 250, 0.5)'
             }, {
+                type: 'line',
                 label: 'Third Try',
-                data: try3,
-                backgroundColor: 'rgba(0, 255, 161, 0.5)'
+                data: dispT3,
+                fill: false,
+                borderColor: 'rgba(0, 255, 161, 0.5)'
             }]
         },
         options: {
             title: {
                 display: true,
-                text: 'Accuracy for Consonants and Syllables',
-                position: 'top'
+                text: 'Accuracy for Consonants and Syllables (Percentage)',
+                position: 'top',
+                fontSize: 17
             },
             legend: {
                 display: true,
                 position: 'right'
-            },
-            scales: { yAxes: [{ stacked: true }] }
+            }
         }
     });
     return myChart3;
@@ -301,7 +291,6 @@ var build3 = function () {
 chartList.push(build0);
 chartList.push(build1);
 chartList.push(build2);
-chartList.push(build3);
 
 // setChart: loads correct chart to page based on an index (1-4)
 function setChart(index) {
