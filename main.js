@@ -202,6 +202,20 @@ var build0 = function() {
             legend: {
                 display: true,
                 position: 'right'
+            },
+            scales: {
+                yAxes: [{
+                    scaleLabel: {
+                        display: true,
+                        labelString: '# of Points'
+                    }
+                }],
+                xAxes: [{
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Date (MM/DD/YYYY)'
+                    }
+                }]
             }
         }
     });
@@ -239,7 +253,22 @@ var build1 = function () {
                 display: true,
                 position: 'right'
             },
-            scales: { yAxes: [{ stacked: true }] }
+            scales: { 
+                yAxes: [{
+                    stacked: true,
+                    scaleLabel: {
+                        display: true,
+                        labelString: '# of Points'
+                    } 
+                }],
+                xAxes: [{
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Date (MM/DD/YYYY)'
+                    }
+                }]
+                
+            }
         }
     });
     return myChart2;
@@ -281,6 +310,20 @@ var build2 = function () {
             legend: {
                 display: true,
                 position: 'right'
+            },
+            scales: {
+                yAxes: [{
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Accuracy (%)'
+                    }
+                }],
+                xAxes: [{
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Date (MM/DD/YYYY)'
+                    }
+                }]
             }
         }
     });
