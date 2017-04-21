@@ -71,7 +71,7 @@ for (var i = 0; i < dates.length; ++i) {
 	try1_diff7.push(total);
 	try1_diff8.push(total);
 
-	var total = try2[i] / 8;
+	total = try2[i] / 8;
 
     try2_diff1.push(total);
 	try2_diff2.push(total);
@@ -82,7 +82,7 @@ for (var i = 0; i < dates.length; ++i) {
 	try2_diff7.push(total);
 	try2_diff8.push(total);
 
-	var total = try3[i] / 8;
+	total = try3[i] / 8;
 
     try3_diff1.push(total);
 	try3_diff2.push(total);
@@ -105,153 +105,153 @@ $('#dateRange').val('selectedvalue').change(function() {
     setChart(currIndex);
 });
 
-var data = {
-	labels: displayDates,
-	datasets: [
-		{
-			label: '3rd Attempt',
-            data: try3,
-            backgroundColor: 'blue',
-            stack: 1
-		}, {
-			label: '2nd Attempt',
-            data: try2,
-            backgroundColor: 'rgba(0, 255, 250, 1)',
-            stack: 1
-		}, {
-			label: '1st Attempt',
-            data: try1,
-            backgroundColor: 'purple',
-            stack: 1
-		}, {
-            label: 'Third Attempt Difficulty 1',
-            data: try3_diff1,
-            backgroundColor: 'rgba(0, 255, 0, 0.75)',
-            stack: 2
-        }, {
-            label: 'Third Attempt Difficulty 2',
-            data: try3_diff2,
-            backgroundColor: 'rgba(102, 255, 102, 0.75)',
-            stack: 2
-        }, {
-            label: 'Third Attempt Difficulty 3',
-            data: try3_diff3,
-            backgroundColor: 'rgba(204, 255, 102, 0.75)',
-            stack: 2
-        }, {
-            label: 'Third Attempt Difficulty 4',
-            data: try3_diff4,
-            backgroundColor: 'rgba(255, 255, 102, 0.75)',
-            stack: 2
-        }, {
-            label: 'Third Attempt Difficulty 5',
-            data: try3_diff5,
-            backgroundColor: 'rgba(255, 204, 0, 0.75)',
-            stack: 2
-        }, {
-            label: 'Third Attempt Difficulty 6',
-            data: try3_diff6,
-            backgroundColor: 'rgba(255, 153, 51, 0.75)',
-            stack: 2
-        }, {
-            label: 'Third Attempt Difficulty 7',
-            data: try3_diff7,
-            backgroundColor: 'rgba(255, 102, 0, 0.75)',
-            stack: 2
-        }, {
-            label: 'Third Attempt Difficulty 8',
-            data: try3_diff8,
-            backgroundColor: 'rgba(255, 0, 0, 0.75)',
-            stack: 2
-        }, {
-            label: 'Second Attempt Difficulty 1',
-            data: try2_diff1,
-            backgroundColor: 'rgba(0, 255, 0, 0.75)',
-            stack: 2
-        }, {
-            label: 'Second Attempt Difficulty 2',
-            data: try2_diff2,
-            backgroundColor: 'rgba(102, 255, 102, 0.75)',
-            stack: 2
-        }, {
-            label: 'Second Attempt Difficulty 3',
-            data: try2_diff3,
-            backgroundColor: 'rgba(204, 255, 102, 0.75)',
-            stack: 2
-        }, {
-            label: 'Second Attempt Difficulty 4',
-            data: try2_diff4,
-            backgroundColor: 'rgba(255, 255, 102, 0.75)',
-            stack: 2
-        }, {
-            label: 'Second Attempt Difficulty 5',
-            data: try2_diff5,
-            backgroundColor: 'rgba(255, 204, 0, 0.75)',
-            stack: 2
-        }, {
-            label: 'Second Attempt Difficulty 6',
-            data: try2_diff6,
-            backgroundColor: 'rgba(255, 153, 51, 0.75)',
-            stack: 2
-        }, {
-            label: 'Second Attempt Difficulty 7',
-            data: try2_diff7,
-            backgroundColor: 'rgba(255, 102, 0, 0.75)',
-            stack: 2
-        }, {
-            label: 'Second Attempt Difficulty 8',
-            data: try2_diff8,
-            backgroundColor: 'rgba(255, 0, 0, 0.75)',
-            stack: 2
-        }, {
-            label: 'First Attempt Difficulty 1',
-            data: try1_diff1,
-            backgroundColor: 'rgba(0, 255, 0, 0.75)',
-            stack: 2
-        }, {
-            label: 'First Attempt Difficulty 2',
-            data: try1_diff2,
-            backgroundColor: 'rgba(102, 255, 102, 0.75)',
-            stack: 2
-        }, {
-            label: 'First Attempt Difficulty 3',
-            data: try1_diff3,
-            backgroundColor: 'rgba(204, 255, 102, 0.75)',
-            stack: 2
-        }, {
-            label: 'First Attempt Difficulty 4',
-            data: try1_diff4,
-            backgroundColor: 'rgba(255, 255, 102, 0.75)',
-            stack: 2
-        }, {
-            label: 'First Attempt Difficulty 5',
-            data: try1_diff5,
-            backgroundColor: 'rgba(255, 204, 0, 0.75)',
-            stack: 2
-        }, {
-            label: 'First Attempt Difficulty 6',
-            data: try1_diff6,
-            backgroundColor: 'rgba(255, 153, 51, 0.75)',
-            stack: 2
-        }, {
-            label: 'First Attempt Difficulty 7',
-            data: try1_diff7,
-            backgroundColor: 'rgba(255, 102, 0, 0.75)',
-            stack: 2
-        }, {
-            label: 'First Attempt Difficulty 8',
-            data: try1_diff8,
-            backgroundColor: 'rgba(255, 0, 0, 0.75)',
-            stack: 2
-        }
-	]
-}
+var	datasets = [
+	{
+		label: '3rd Attempt',
+        data: try3,
+        backgroundColor: 'blue',
+        stack: 1
+	}, {
+		label: '2nd Attempt',
+        data: try2,
+        backgroundColor: 'rgba(0, 255, 250, 1)',
+        stack: 1
+	}, {
+		label: '1st Attempt',
+        data: try1,
+        backgroundColor: 'purple',
+        stack: 1
+	}, {
+        label: 'Third Attempt Difficulty 1',
+        data: try3_diff1,
+        backgroundColor: 'rgba(0, 255, 0, 0.75)',
+        stack: 2
+    }, {
+        label: 'Third Attempt Difficulty 2',
+        data: try3_diff2,
+        backgroundColor: 'rgba(102, 255, 102, 0.75)',
+        stack: 2
+    }, {
+        label: 'Third Attempt Difficulty 3',
+        data: try3_diff3,
+        backgroundColor: 'rgba(204, 255, 102, 0.75)',
+        stack: 2
+    }, {
+        label: 'Third Attempt Difficulty 4',
+        data: try3_diff4,
+        backgroundColor: 'rgba(255, 255, 102, 0.75)',
+        stack: 2
+    }, {
+        label: 'Third Attempt Difficulty 5',
+        data: try3_diff5,
+        backgroundColor: 'rgba(255, 204, 0, 0.75)',
+        stack: 2
+    }, {
+        label: 'Third Attempt Difficulty 6',
+        data: try3_diff6,
+        backgroundColor: 'rgba(255, 153, 51, 0.75)',
+        stack: 2
+    }, {
+        label: 'Third Attempt Difficulty 7',
+        data: try3_diff7,
+        backgroundColor: 'rgba(255, 102, 0, 0.75)',
+        stack: 2
+    }, {
+        label: 'Third Attempt Difficulty 8',
+        data: try3_diff8,
+        backgroundColor: 'rgba(255, 0, 0, 0.75)',
+        stack: 2
+    }, {
+        label: 'Second Attempt Difficulty 1',
+        data: try2_diff1,
+        backgroundColor: 'rgba(0, 255, 0, 0.75)',
+        stack: 2
+    }, {
+        label: 'Second Attempt Difficulty 2',
+        data: try2_diff2,
+        backgroundColor: 'rgba(102, 255, 102, 0.75)',
+        stack: 2
+    }, {
+        label: 'Second Attempt Difficulty 3',
+        data: try2_diff3,
+        backgroundColor: 'rgba(204, 255, 102, 0.75)',
+        stack: 2
+    }, {
+        label: 'Second Attempt Difficulty 4',
+        data: try2_diff4,
+        backgroundColor: 'rgba(255, 255, 102, 0.75)',
+        stack: 2
+    }, {
+        label: 'Second Attempt Difficulty 5',
+        data: try2_diff5,
+        backgroundColor: 'rgba(255, 204, 0, 0.75)',
+        stack: 2
+    }, {
+        label: 'Second Attempt Difficulty 6',
+        data: try2_diff6,
+        backgroundColor: 'rgba(255, 153, 51, 0.75)',
+        stack: 2
+    }, {
+        label: 'Second Attempt Difficulty 7',
+        data: try2_diff7,
+        backgroundColor: 'rgba(255, 102, 0, 0.75)',
+        stack: 2
+    }, {
+        label: 'Second Attempt Difficulty 8',
+        data: try2_diff8,
+        backgroundColor: 'rgba(255, 0, 0, 0.75)',
+        stack: 2
+    }, {
+        label: 'First Attempt Difficulty 1',
+        data: try1_diff1,
+        backgroundColor: 'rgba(0, 255, 0, 0.75)',
+        stack: 2
+    }, {
+        label: 'First Attempt Difficulty 2',
+        data: try1_diff2,
+        backgroundColor: 'rgba(102, 255, 102, 0.75)',
+        stack: 2
+    }, {
+        label: 'First Attempt Difficulty 3',
+        data: try1_diff3,
+        backgroundColor: 'rgba(204, 255, 102, 0.75)',
+        stack: 2
+    }, {
+        label: 'First Attempt Difficulty 4',
+        data: try1_diff4,
+        backgroundColor: 'rgba(255, 255, 102, 0.75)',
+        stack: 2
+    }, {
+        label: 'First Attempt Difficulty 5',
+        data: try1_diff5,
+        backgroundColor: 'rgba(255, 204, 0, 0.75)',
+        stack: 2
+    }, {
+        label: 'First Attempt Difficulty 6',
+        data: try1_diff6,
+        backgroundColor: 'rgba(255, 153, 51, 0.75)',
+        stack: 2
+    }, {
+        label: 'First Attempt Difficulty 7',
+        data: try1_diff7,
+        backgroundColor: 'rgba(255, 102, 0, 0.75)',
+        stack: 2
+    }, {
+        label: 'First Attempt Difficulty 8',
+        data: try1_diff8,
+        backgroundColor: 'rgba(255, 0, 0, 0.75)',
+        stack: 2
+    }
+]
 
 // GRAPH 0: Accuracy and Difficulty Gradient
 var build0 = function () {
 	var myChart1 = new Chart(ctx, {
 		type: 'bar',
-		data: data,
+		data: {
+            labels: displayDates,
+            datasets: datasets
+        },
 		options: {
 	        title: {
 	            display: true,
