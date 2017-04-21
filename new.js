@@ -260,7 +260,7 @@ var build0 = function () {
 	            fontSize: 17
 	        },
 	        legend: {
-	            display: false,
+	            display: true,
 	            position: 'right'
 	        },
 	        scales: { 
