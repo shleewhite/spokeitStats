@@ -14,7 +14,7 @@ var try1 = []							// array of times successful on first attempt each day
 var try2 = []							// array of times successful on second attempt each day
 var try3 = []							// array of times successful on third attempt each day
 
-var try1_diff1 = []							// array of levels attempted at difficulty 1 (EASIEST)
+var try1_diff1 = []						// array of levels attempted at difficulty 1 (EASIEST)
 var try1_diff2 = []						// array of levels attempted at difficulty 2
 var try1_diff3 = []						// array of levels attempted at difficulty 3
 var try1_diff4 = []						// array of levels attempted at difficulty 4
@@ -23,7 +23,7 @@ var try1_diff6 = []						// array of levels attempted at difficulty 6
 var try1_diff7 = []						// array of levels attempted at difficulty 7
 var try1_diff8 = []						// array of levels attempted at difficulty 8 (HARDEST)
 
-var try2_diff1 = []							// array of levels attempted at difficulty 1 (EASIEST)
+var try2_diff1 = []						// array of levels attempted at difficulty 1 (EASIEST)
 var try2_diff2 = []						// array of levels attempted at difficulty 2
 var try2_diff3 = []						// array of levels attempted at difficulty 3
 var try2_diff4 = []						// array of levels attempted at difficulty 4
@@ -32,7 +32,7 @@ var try2_diff6 = []						// array of levels attempted at difficulty 6
 var try2_diff7 = []						// array of levels attempted at difficulty 7
 var try2_diff8 = []						// array of levels attempted at difficulty 8 (HARDEST)
 
-var try3_diff1 = []							// array of levels attempted at difficulty 1 (EASIEST)
+var try3_diff1 = []						// array of levels attempted at difficulty 1 (EASIEST)
 var try3_diff2 = []						// array of levels attempted at difficulty 2
 var try3_diff3 = []						// array of levels attempted at difficulty 3
 var try3_diff4 = []						// array of levels attempted at difficulty 4
@@ -260,15 +260,24 @@ var build0 = function () {
 	            fontSize: 17
 	        },
 	        legend: {
-	            display: true,
+	            display: false,
 	            position: 'right'
 	        },
-	        scales: 
-	        	{ yAxes: [{ 
-	        		stacked: true 
-	        	}] 	
+	        scales: { 
+        		yAxes: [{ 
+	        		stacked: true,
+	        		scaleLabel: {
+	        			display: true,
+	        			labelString: 'Time Spent Speaking (in Minutes)'
+	        		}
+        		}], xAxes: [{
+	        		scaleLabel: {
+	        			display: true, 
+	        			labelString: 'Date (MM/DD/YYYY)'
+	        		}
+        		}]
 	    	}
-	    }
+	    }			
 	});
     return myChart1;
 }
