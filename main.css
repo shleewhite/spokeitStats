@@ -26,6 +26,3 @@ p, h3, select { color : #494747; }
 p, h3 { margin: 0; }
 p { margin-top: 0.75em; }
 h3 { margin-bottom: 0.75em; }
-
-/*JS takes care of when these are shown*/
-#consonant-q, #consonant-opt, #syllable-q, #syllable-opt, #acc-q, #acc-opt { display: none; }
