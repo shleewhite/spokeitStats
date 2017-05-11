@@ -15,6 +15,7 @@ var try2 = []							// array of times successful on second attempt each day
 var try3 = []							// array of times successful on third attempt each day
 
 var w_avg = []                          // array of weighted average scores for each day
+var disp_avg = []                       // array of scores currently displayed
 
 var h_perf = []                         // arrays for performance based on what said
 var p_perf = []
@@ -77,6 +78,9 @@ for (var i = 0; i < dates.length; i++) {
     w_avg.push(sum_1 / diff_sum);
 }
 
+// set disp_avg to default selection of dates
+disp_avg = w_avg.slice(w_avg.length - 7);
+
 // add values to performance arrays
 for (var i = 0; i < dates.length; ++i) {
     h_perf.push((Math.random()*9)*(Math.random()*4))
@@ -103,10 +107,13 @@ for (var i = 0; i < dates.length; ++i) {
 $('#dateRange').val('selectedvalue').change(function() {
     if (this.value == "7") { 
         displayDates = dates.slice(dates.length - 7); 
+        if (currIndex == 0) { disp_avg = w_avg.slice(w_avg.length - 7); }
     } else if (this.value == "30") { 
         displayDates = dates.slice(dates.length - 30); 
+        if (currIndex == 0) { disp_avg = w_avg.slice(w_avg.length - 30); }
     } else { 
-        displayDates = dates; 
+        displayDates = dates;
+        if (currIndex == 0) { disp_avg = w_avg; }
     }
     setChart(currIndex);
 });
@@ -114,6 +121,7 @@ $('#dateRange').val('selectedvalue').change(function() {
 $('#type').val('selectedvalue').change(function() {
     if (this.value == "gen") {
         displayDates = dates.slice(dates.length - 7);
+        disp_avg = w_avg.slice(w_avg.length - 7);
         $("#dateRange").val('selectedvalue').val("7");
         setChart(0); 
     } else if (this.value == "per") {
@@ -121,23 +129,7 @@ $('#type').val('selectedvalue').change(function() {
         $("#dateRange").val('selectedvalue').val("7");
         setChart(1); 
     }
-
 });
-
-var chart1_dataset = [
-    {
-        label: 'Weighted Avgerage',
-        type: 'line',
-        data: w_avg,
-        borderColor: 'blue',
-        fill: false
-    }, {
-        label: 'Time Speaking',
-        type: 'bar',
-        data: time_speak,
-        backgroundColor: 'green'
-    }
-]
 
 var chart2_dataset = [
     {
@@ -249,7 +241,20 @@ var build0 = function () {
 		type: 'bar',
 		data: {
             labels: displayDates,
-            datasets: chart1_dataset
+            datasets: [
+                {
+                    label: 'Weighted Avgerage',
+                    type: 'line',
+                    data: disp_avg,
+                    borderColor: 'blue',
+                    fill: false
+                }, {
+                    label: 'Time Speaking',
+                    type: 'bar',
+                    data: time_speak,
+                    backgroundColor: 'green'
+                }
+            ]
         },
 		options: {
 	        title: {
