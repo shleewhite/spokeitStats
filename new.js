@@ -315,17 +315,20 @@ var build1 = function() {
                     label: '/k/',
                     data: k_DISP,
                     borderColor: 'rgba(128, 255, 0, 1)',
-                    fill: false
+                    fill: false,
+                    hidden: true
                 }, {
                     label: '/g/',
                     data: g_DISP,
                     borderColor: 'rgba(0, 255, 128, 1)',
-                    fill: false
+                    fill: false,
+                    hidden: true
                 }, {
                     label: '/s/',
                     data: s_DISP,
                     borderColor: 'rgba(0, 255, 255, 1)',
-                    fill: false
+                    fill: false,
+                    hidden: true
                 }, {
                     label: '/Θ/',
                     data: th_DISP,
