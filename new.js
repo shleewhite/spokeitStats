@@ -36,6 +36,25 @@ var nd_perf = []
 var lt_perf = []
 var ld_perf = []
 
+var h_DISP = []                         // arrays of displayed perf data
+var p_DISP = []
+var b_DISP = []
+var t_DISP = []
+var d_DISP = []
+var k_DISP = []
+var g_DISP = []
+var s_DISP = []
+var th_DISP = []
+var ths_DISP = []
+var sh_DISP = []
+var f_DISP = []
+var ch_DISP = []
+var j_DISP = []
+var nt_DISP = []
+var nd_DISP = []
+var lt_DISP = []
+var ld_DISP = []
+
 // adds all dates in January and February to dates array
 for (var i = 1; i < 32; i++) { dates.push("Jan " + i + ", 2016"); }
 for (var i = 1; i < 29; i++) { dates.push("Feb " + i + ", 2016"); }
@@ -104,16 +123,96 @@ for (var i = 0; i < dates.length; ++i) {
 
 }
 
+// set performance arrays to default selection of dates
+h_DISP = h_perf.slice(h_perf.length - 7);
+p_DISP = p_perf.slice(p_perf.length - 7);
+b_DISP = b_perf.slice(b_perf.length - 7);
+t_DISP = t_perf.slice(t_perf.length - 7);
+d_DISP = d_perf.slice(d_perf.length - 7);
+k_DISP = k_perf.slice(k_perf.length - 7);
+g_DISP = g_perf.slice(g_perf.length - 7);
+s_DISP = s_perf.slice(s_perf.length - 7);
+th_DISP = th_perf.slice(th_perf.length - 7);
+ths_DISP = ths_perf.slice(ths_perf.length - 7);
+sh_DISP = sh_perf.slice(sh_perf.length - 7);
+f_DISP = f_perf.slice(f_perf.length - 7);
+ch_DISP = ch_perf.slice(ch_perf.length - 7);
+j_DISP = j_perf.slice(j_perf.length - 7);
+nt_DISP = nt_perf.slice(nt_perf.length - 7);
+nd_DISP = nd_perf.slice(nd_perf.length - 7);
+lt_DISP = lt_perf.slice(lt_perf.length - 7);
+ld_DISP = ld_perf.slice(ld_perf.length - 7);
+
 $('#dateRange').val('selectedvalue').change(function() {
     if (this.value == "7") { 
         displayDates = dates.slice(dates.length - 7); 
         if (currIndex == 0) { disp_avg = w_avg.slice(w_avg.length - 7); }
+        else if (currIndex == 1) {
+            h_DISP = h_perf.slice(h_perf.length - 7);
+            p_DISP = p_perf.slice(p_perf.length - 7);
+            b_DISP = b_perf.slice(b_perf.length - 7);
+            t_DISP = t_perf.slice(t_perf.length - 7);
+            d_DISP = d_perf.slice(d_perf.length - 7);
+            k_DISP = k_perf.slice(k_perf.length - 7);
+            g_DISP = g_perf.slice(g_perf.length - 7);
+            s_DISP = s_perf.slice(s_perf.length - 7);
+            th_DISP = th_perf.slice(th_perf.length - 7);
+            ths_DISP = ths_perf.slice(ths_perf.length - 7);
+            sh_DISP = sh_perf.slice(sh_perf.length - 7);
+            f_DISP = f_perf.slice(f_perf.length - 7);
+            ch_DISP = ch_perf.slice(ch_perf.length - 7);
+            j_DISP = j_perf.slice(j_perf.length - 7);
+            nt_DISP = nt_perf.slice(nt_perf.length - 7);
+            nd_DISP = nd_perf.slice(nd_perf.length - 7);
+            lt_DISP = lt_perf.slice(lt_perf.length - 7);
+            ld_DISP = ld_perf.slice(ld_perf.length - 7);
+        }
     } else if (this.value == "30") { 
         displayDates = dates.slice(dates.length - 30); 
         if (currIndex == 0) { disp_avg = w_avg.slice(w_avg.length - 30); }
+        else if (currIndex == 1) {
+            h_DISP = h_perf.slice(h_perf.length - 30);
+            p_DISP = p_perf.slice(p_perf.length - 30);
+            b_DISP = b_perf.slice(b_perf.length - 30);
+            t_DISP = t_perf.slice(t_perf.length - 30);
+            d_DISP = d_perf.slice(d_perf.length - 30);
+            k_DISP = k_perf.slice(k_perf.length - 30);
+            g_DISP = g_perf.slice(g_perf.length - 30);
+            s_DISP = s_perf.slice(s_perf.length - 30);
+            th_DISP = th_perf.slice(th_perf.length - 30);
+            ths_DISP = ths_perf.slice(ths_perf.length - 30);
+            sh_DISP = sh_perf.slice(sh_perf.length - 30);
+            f_DISP = f_perf.slice(f_perf.length - 30);
+            ch_DISP = ch_perf.slice(ch_perf.length - 30);
+            j_DISP = j_perf.slice(j_perf.length - 30);
+            nt_DISP = nt_perf.slice(nt_perf.length - 30);
+            nd_DISP = nd_perf.slice(nd_perf.length - 30);
+            lt_DISP = lt_perf.slice(lt_perf.length - 30);
+            ld_DISP = ld_perf.slice(ld_perf.length - 30);
+        }
     } else { 
         displayDates = dates;
         if (currIndex == 0) { disp_avg = w_avg; }
+        else if (currIndex == 1) {
+            h_DISP = h_perf;
+            p_DISP = p_perf;
+            b_DISP = b_perf;
+            t_DISP = t_perf;
+            d_DISP = d_perf;
+            k_DISP = k_perf;
+            g_DISP = g_perf;
+            s_DISP = s_perf;
+            th_DISP = th_perf;
+            ths_DISP = ths_perf;
+            sh_DISP = sh_perf;
+            f_DISP = f_perf;
+            ch_DISP = ch_perf;
+            j_DISP = j_perf;
+            nt_DISP = nt_perf;
+            nd_DISP = nd_perf;
+            lt_DISP = lt_perf;
+            ld_DISP = ld_perf;
+        }
     }
     setChart(currIndex);
 });
@@ -130,110 +229,6 @@ $('#type').val('selectedvalue').change(function() {
         setChart(1); 
     }
 });
-
-var chart2_dataset = [
-    {
-        label: '/h/',
-        data: h_perf,
-        borderColor: 'rgba(255, 0, 0, 1)',
-        fill: false
-    }, {
-        label: '/p/',
-        data: p_perf,
-        borderColor: 'rgba(255, 128, 0, 1)',
-        fill: false
-    } , {
-        label: '/b/',
-        data: b_perf,
-        borderColor: 'rgba(255, 191, 0, 1)',
-        fill: false
-    }, {
-        label: '/t/',
-        data: t_perf,
-        borderColor: 'rgba(255, 255, 0, 1)',
-        fill: false
-    }, {
-        label: '/d/',
-        data: d_perf,
-        borderColor: 'rgba(191, 255, 0, 1)',
-        fill: false
-    }, {
-        label: '/k/',
-        data: k_perf,
-        borderColor: 'rgba(128, 255, 0, 1)',
-        fill: false
-    }, {
-        label: '/g/',
-        data: g_perf,
-        borderColor: 'rgba(0, 255, 128, 1)',
-        fill: false
-    }, {
-        label: '/s/',
-        data: s_perf,
-        borderColor: 'rgba(0, 255, 255, 1)',
-        fill: false
-    }, {
-        label: '/Θ/',
-        data: th_perf,
-        borderColor: '  rgba(0, 128, 255, 1)',
-        fill: false,
-        hidden: true
-    }, {
-        label: '/Θs/',
-        data: ths_perf,
-        borderColor: 'rgba(0, 0, 255, 1)',
-        fill: false,
-        hidden: true
-    }, {
-        label: '/∫/',
-        data: sh_perf,
-        borderColor: 'rgba(128, 0, 255, 1)',
-        fill: false,
-        hidden: true
-    }, {
-        label: '/f/',
-        data: f_perf,
-        borderColor: 'rgba(191, 0, 255, 1)',
-        fill: false,
-        hidden: true
-    }, {
-        label: '/t∫/',
-        data: ch_perf,
-        borderColor: 'rgba(255, 0, 255, 1)',
-        fill: false,
-        hidden: true
-    }, {
-        label: '/dʒ/',
-        data: j_perf,
-        borderColor: 'rgba(255, 0, 191, 1)',
-        fill: false,
-        hidden: true
-    }, {
-        label: 'Final /nt/',
-        data: nt_perf,
-        borderColor: 'rgba(255, 0, 128, 1)',
-        fill: false,
-        hidden: true
-    }, {
-        label: 'Final /nd/',
-        data: nd_perf,
-        borderColor: 'blue',
-        fill: false,
-        hidden: true
-    }, {
-        label: 'Final /lt/',
-        data: lt_perf,
-        borderColor: 'yellow',
-        fill: false,
-        hidden: true
-    }, {
-        label: 'Final /ld/',
-        data: ld_perf,
-        borderColor: 'rgba(255, 0, 0, 1)',
-        fill: false,
-        hidden: true
-    }
-]
 
 // GRAPH 0: Accuracy and Difficulty Gradient
 var build0 = function () {
@@ -290,7 +285,112 @@ var build1 = function() {
         type: 'line',
         data: {
             labels: displayDates,
-            datasets: chart2_dataset
+            datasets: [
+                {
+                    label: '/h/',
+                    data: h_DISP,
+                    borderColor: 'rgba(255, 0, 0, 1)',
+                    fill: false
+                }, {
+                    label: '/p/',
+                    data: p_DISP,
+                    borderColor: 'rgba(255, 128, 0, 1)',
+                    fill: false
+                } , {
+                    label: '/b/',
+                    data: b_DISP,
+                    borderColor: 'rgba(255, 191, 0, 1)',
+                    fill: false
+                }, {
+                    label: '/t/',
+                    data: t_DISP,
+                    borderColor: 'rgba(255, 255, 0, 1)',
+                    fill: false
+                }, {
+                    label: '/d/',
+                    data: d_DISP,
+                    borderColor: 'rgba(191, 255, 0, 1)',
+                    fill: false
+                }, {
+                    label: '/k/',
+                    data: k_DISP,
+                    borderColor: 'rgba(128, 255, 0, 1)',
+                    fill: false,
+                    hidden: true
+                }, {
+                    label: '/g/',
+                    data: g_DISP,
+                    borderColor: 'rgba(0, 255, 128, 1)',
+                    fill: false,
+                    hidden: true
+                }, {
+                    label: '/s/',
+                    data: s_DISP,
+                    borderColor: 'rgba(0, 255, 255, 1)',
+                    fill: false,
+                    hidden: true
+                }, {
+                    label: '/Θ/',
+                    data: th_DISP,
+                    borderColor: '  rgba(0, 128, 255, 1)',
+                    fill: false,
+                    hidden: true
+                }, {
+                    label: '/Θs/',
+                    data: ths_DISP,
+                    borderColor: 'rgba(0, 0, 255, 1)',
+                    fill: false,
+                    hidden: true
+                }, {
+                    label: '/∫/',
+                    data: sh_DISP,
+                    borderColor: 'rgba(128, 0, 255, 1)',
+                    fill: false,
+                    hidden: true
+                }, {
+                    label: '/f/',
+                    data: f_DISP,
+                    borderColor: 'rgba(191, 0, 255, 1)',
+                    fill: false,
+                    hidden: true
+                }, {
+                    label: '/t∫/',
+                    data: ch_DISP,
+                    borderColor: 'rgba(255, 0, 255, 1)',
+                    fill: false,
+                    hidden: true
+                }, {
+                    label: '/dʒ/',
+                    data: j_DISP,
+                    borderColor: 'rgba(255, 0, 191, 1)',
+                    fill: false,
+                    hidden: true
+                }, {
+                    label: 'Final /nt/',
+                    data: nt_DISP,
+                    borderColor: 'rgba(255, 0, 128, 1)',
+                    fill: false,
+                    hidden: true
+                }, {
+                    label: 'Final /nd/',
+                    data: nd_DISP,
+                    borderColor: 'blue',
+                    fill: false,
+                    hidden: true
+                }, {
+                    label: 'Final /lt/',
+                    data: lt_DISP,
+                    borderColor: 'yellow',
+                    fill: false,
+                    hidden: true
+                }, {
+                    label: 'Final /ld/',
+                    data: ld_DISP,
+                    borderColor: 'rgba(255, 0, 0, 1)',
+                    fill: false,
+                    hidden: true
+                }
+            ]
         },
         options: {
             title: {
