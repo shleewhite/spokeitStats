@@ -349,47 +349,56 @@ var chart2_dataset = [
         label: '/Θs/',
         data: ths_perf,
         borderColor: 'rgba(0, 0, 255, 1)',
-        fill: false
+        fill: false,
+        hidden: true
     }, {
         label: '/∫/',
         data: sh_perf,
         borderColor: 'rgba(128, 0, 255, 1)',
-        fill: false
+        fill: false,
+        hidden: true
     }, {
         label: '/f/',
         data: f_perf,
         borderColor: 'rgba(191, 0, 255, 1)',
-        fill: false
+        fill: false,
+        hidden: true
     }, {
         label: '/t∫/',
         data: ch_perf,
         borderColor: 'rgba(255, 0, 255, 1)',
-        fill: false
+        fill: false,
+        hidden: true
     }, {
         label: '/dʒ/',
         data: j_perf,
         borderColor: 'rgba(255, 0, 191, 1)',
-        fill: false
+        fill: false,
+        hidden: true
     }, {
         label: 'Final /nt/',
         data: nt_perf,
         borderColor: 'rgba(255, 0, 128, 1)',
-        fill: false
+        fill: false,
+        hidden: true
     }, {
         label: 'Final /nd/',
         data: nd_perf,
         borderColor: 'blue',
-        fill: false
+        fill: false,
+        hidden: true
     }, {
         label: 'Final /lt/',
         data: lt_perf,
         borderColor: 'yellow',
-        fill: false
+        fill: false,
+        hidden: true
     }, {
         label: 'Final /ld/',
         data: ld_perf,
         borderColor: 'rgba(255, 0, 0, 1)',
-        fill: false
+        fill: false,
+        hidden: true
     }
 ]
 
