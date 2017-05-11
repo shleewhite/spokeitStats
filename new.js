@@ -43,15 +43,16 @@ for (var i = 1; i < 29; i++) { dates.push("Feb " + i + ", 2016"); }
 displayDates = dates.slice(dates.length - 7);
 
 // adds amounts of time spoken each day
-for (var i = 0; i < dates.length; i++) { time_speak.push(Math.random() * 60); }
+for (var i = 0; i < dates.length; i++) { time_speak.push(Math.random() * 21); }
 
-// adds a value to each try and diff array
+// adds a value to each try arrays
 for (var i = 0; i < dates.length; i++) {
 	try1.push(Math.floor(Math.random() * 15));
 	try2.push(Math.floor(Math.random() * 15));
 	try3.push(Math.floor(Math.random() * 15));
 }
 
+// adds values to w_avg array
 for (var i = 0; i < dates.length; i++) {
     var sum_1 = 0;
     var diff_sum = 0;
@@ -78,24 +79,24 @@ for (var i = 0; i < dates.length; i++) {
 
 // add values to performance arrays
 for (var i = 0; i < dates.length; ++i) {
-    h_perf.push((Math.random()*8)*(Math.random()*4))
-    p_perf.push((Math.random()*8)*(Math.random()*4))
-    b_perf.push((Math.random()*8)*(Math.random()*4))
-    t_perf.push((Math.random()*8)*(Math.random()*4))
-    d_perf.push((Math.random()*8)*(Math.random()*4))
-    k_perf.push((Math.random()*8)*(Math.random()*4))
-    g_perf.push((Math.random()*8)*(Math.random()*4))
-    s_perf.push((Math.random()*8)*(Math.random()*4))
-    th_perf.push((Math.random()*8)*(Math.random()*4))
-    ths_perf.push((Math.random()*8)*(Math.random()*4))
-    sh_perf.push((Math.random()*8)*(Math.random()*4))
-    f_perf.push((Math.random()*8)*(Math.random()*4))
-    ch_perf.push((Math.random()*8)*(Math.random()*4))
-    j_perf.push((Math.random()*8)*(Math.random()*4))
-    nt_perf.push((Math.random()*8)*(Math.random()*4))
-    nd_perf.push((Math.random()*8)*(Math.random()*4))
-    lt_perf.push((Math.random()*8)*(Math.random()*4))
-    ld_perf.push((Math.random()*8)*(Math.random()*4))
+    h_perf.push((Math.random()*9)*(Math.random()*4))
+    p_perf.push((Math.random()*9)*(Math.random()*4))
+    b_perf.push((Math.random()*9)*(Math.random()*4))
+    t_perf.push((Math.random()*9)*(Math.random()*4))
+    d_perf.push((Math.random()*9)*(Math.random()*4))
+    k_perf.push((Math.random()*9)*(Math.random()*4))
+    g_perf.push((Math.random()*9)*(Math.random()*4))
+    s_perf.push((Math.random()*9)*(Math.random()*4))
+    th_perf.push((Math.random()*9)*(Math.random()*4))
+    ths_perf.push((Math.random()*9)*(Math.random()*4))
+    sh_perf.push((Math.random()*9)*(Math.random()*4))
+    f_perf.push((Math.random()*9)*(Math.random()*4))
+    ch_perf.push((Math.random()*9)*(Math.random()*4))
+    j_perf.push((Math.random()*9)*(Math.random()*4))
+    nt_perf.push((Math.random()*9)*(Math.random()*4))
+    nd_perf.push((Math.random()*9)*(Math.random()*4))
+    lt_perf.push((Math.random()*9)*(Math.random()*4))
+    ld_perf.push((Math.random()*9)*(Math.random()*4))
 
 }
 
@@ -125,10 +126,16 @@ $('#type').val('selectedvalue').change(function() {
 
 var chart1_dataset = [
     {
-        label: 'weighted avg',
+        label: 'Weighted Avgerage',
+        type: 'line',
         data: w_avg,
         borderColor: 'blue',
         fill: false
+    }, {
+        label: 'Time Speaking',
+        type: 'bar',
+        data: time_speak,
+        backgroundColor: 'green'
     }
 ]
 
@@ -239,7 +246,7 @@ var chart2_dataset = [
 // GRAPH 0: Accuracy and Difficulty Gradient
 var build0 = function () {
 	var myChart0 = new Chart(ctx, {
-		type: 'line',
+		type: 'bar',
 		data: {
             labels: displayDates,
             datasets: chart1_dataset
