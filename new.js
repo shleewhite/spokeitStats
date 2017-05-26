@@ -247,31 +247,31 @@ var build0 = function () {
                     label: 'Time Speaking',
                     type: 'bar',
                     data: time_speak,
-                    backgroundColor: 'green'
+                    backgroundColor: 'rgba(81, 242, 46, 1)'
                 }
             ]
         },
 		options: {
 	        title: {
 	            display: true,
-	            text: 'Overview',
+	            text: 'Overview: Time Speaking per Day and Weighted Average of Score',
 	            position: 'top',
 	            fontSize: 17
 	        },
 	        legend: {
 	            display: true,
-	            position: 'right'
+	            position: 'bottom'
 	        },
 	        scales: { 
         		yAxes: [{ 
 	        		scaleLabel: {
 	        			display: true,
-	        			labelString: 'Time Spent Speaking (in Minutes)'
+	        			labelString: 'Time Spent Speaking (in Minutes) and Average Score'
 	        		}
         		}], xAxes: [{
 	        		scaleLabel: {
 	        			display: true, 
-	        			labelString: 'Date (MM/DD/YYYY)'
+	        			labelString: 'Date'
 	        		}
         		}]
 	    	}
@@ -395,25 +395,25 @@ var build1 = function() {
         options: {
             title: {
                 display: true,
-                text: 'Performance',
+                text: 'Performance on Specific Sounds over Time',
                 position: 'top',
                 fontSize: 17
             }, 
             legend: {
                 display: true,
-                position: 'right'
+                position: 'bottom'
             },
             scales: {
                 yAxes: [{
                     scaleLabel: {
                         display: true,
-                        labelString: 'Performance (difficulty * attempts)'
+                        labelString: 'Performance (difficulty x attempts)'
                     }
                 }], xAxes: [{
                     stacked: true,
                     scaleLabel: {
                         display: true,
-                        labelString: 'Date (MM/DD/YYYY)'
+                        labelString: 'Date'
                     }
                 }]
             }
@@ -434,3 +434,16 @@ function setChart(index) {
 }
 
 setChart(0); 
+
+// show_popup: displays instructions below menu
+function show_popup() {
+    var popup = document.getElementById("p-text");
+    popup.classList.toggle("show");
+    if (currIndex == 0) {
+        document.getElementById("w").style.display = "block";
+        document.getElementById("p").style.display = "none";
+    } else {
+        document.getElementById("p").style.display = "block";
+        document.getElementById("w").style.display = "none";
+    }
+}
