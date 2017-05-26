@@ -13,7 +13,17 @@
 		<option value="7">Last 7 Days</option>
 		<option value="30">Last 30 Days</option>
 		<option value="all">All</option>
-	</select>
+	</select><br>
+	<input type="checkbox" name="instructions" onclick="show_popup()">
+		<span id="radioLabel">Show Instructions</span>
+	<div class="popup">
+	<div class="popup-text" id="p-text">
+		<span>Hover over a data point to see vaue</span><br><br>
+		<span>Click on the legend elements to show/hide datasets</span><br><br>
+		<span id="w">Weighted average calculated with the levels of difficulty done and attempts taken each day</span>
+		<span id="p">Performance calculated based on sounds in words said, defaults to show 5 most critical sounds</span>
+	</div>
+</div>
 </div>
 
 <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js'></script>
